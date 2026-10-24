@@ -1,0 +1,171 @@
+{
+  "outcome": "poor (consumption per adult equivalent below NISR total poverty line, EICV7)",
+  "weighted_poverty_rate_households": 0.2339,
+  "n_households": 15054,
+  "n_clusters": 1674,
+  "features_registry_observable": [
+    "head_age",
+    "hhsize",
+    "dependency_ratio",
+    "rooms",
+    "n_child",
+    "n_elderly",
+    "n_working",
+    "min_health_centre",
+    "min_sector_office",
+    "min_food_market",
+    "head_female",
+    "head_65plus",
+    "head_widowed",
+    "head_no_school",
+    "head_secondary_plus",
+    "any_disabled",
+    "no_adult_male",
+    "any_adult_literate",
+    "any_phone",
+    "any_nonfarm_wage",
+    "floor_improved",
+    "wall_cement",
+    "roof_metal",
+    "electricity",
+    "grid",
+    "toilet_improved",
+    "umudugudu",
+    "dispersed",
+    "owns_dwelling",
+    "livestock",
+    "cattle",
+    "rural"
+  ],
+  "features_district_dummies": 29,
+  "features_excluded_on_purpose": [
+    "any_account",
+    "sacco",
+    "momo",
+    "bank",
+    "tontine",
+    "tried_loan",
+    "has_debt",
+    "share_insured"
+  ],
+  "model": "L2 logistic regression, C=0.3, standardised inputs, sample-weighted",
+  "validation": "5-fold GroupKFold by enumeration cluster, out-of-fold metrics, weighted",
+  "metrics_logistic": {
+    "auc": 0.814,
+    "brier": 0.1374,
+    "precision": 0.537,
+    "recall": 0.537,
+    "flagged_share": 0.234
+  },
+  "threshold_logistic": 0.3751,
+  "metrics_gradient_boosting_comparison": {
+    "auc": 0.818,
+    "brier": 0.136,
+    "precision": 0.55,
+    "recall": 0.55,
+    "flagged_share": 0.234
+  },
+  "calibration_deciles": [
+    {
+      "dec": 0,
+      "pred": 0.014,
+      "obs": 0.014,
+      "n": 1506.0
+    },
+    {
+      "dec": 1,
+      "pred": 0.034,
+      "obs": 0.029,
+      "n": 1505.0
+    },
+    {
+      "dec": 2,
+      "pred": 0.061,
+      "obs": 0.056,
+      "n": 1505.0
+    },
+    {
+      "dec": 3,
+      "pred": 0.098,
+      "obs": 0.101,
+      "n": 1506.0
+    },
+    {
+      "dec": 4,
+      "pred": 0.144,
+      "obs": 0.156,
+      "n": 1505.0
+    },
+    {
+      "dec": 5,
+      "pred": 0.203,
+      "obs": 0.227,
+      "n": 1505.0
+    },
+    {
+      "dec": 6,
+      "pred": 0.276,
+      "obs": 0.289,
+      "n": 1506.0
+    },
+    {
+      "dec": 7,
+      "pred": 0.369,
+      "obs": 0.383,
+      "n": 1505.0
+    },
+    {
+      "dec": 8,
+      "pred": 0.491,
+      "obs": 0.463,
+      "n": 1505.0
+    },
+    {
+      "dec": 9,
+      "pred": 0.695,
+      "obs": 0.669,
+      "n": 1506.0
+    }
+  ],
+  "coefficients_standardised": {
+    "floor_improved": -0.4583,
+    "head_secondary_plus": -0.3878,
+    "rooms": -0.2989,
+    "cattle": -0.2461,
+    "no_adult_male": -0.2319,
+    "livestock": -0.1895,
+    "wall_cement": -0.1833,
+    "electricity": -0.1487,
+    "any_phone": -0.1336,
+    "head_widowed": -0.1301,
+    "owns_dwelling": -0.0784,
+    "any_nonfarm_wage": -0.0689,
+    "roof_metal": -0.0674,
+    "grid": -0.0606,
+    "any_adult_literate": -0.0385,
+    "dispersed": -0.0162,
+    "toilet_improved": -0.0136,
+    "min_food_market": -0.0104,
+    "min_sector_office": -0.008,
+    "head_age": 0.0065,
+    "rural": 0.0072,
+    "n_elderly": 0.0165,
+    "umudugudu": 0.021,
+    "head_65plus": 0.0294,
+    "min_health_centre": 0.0591,
+    "any_disabled": 0.075,
+    "n_child": 0.1403,
+    "head_no_school": 0.1421,
+    "dependency_ratio": 0.1575,
+    "head_female": 0.2356,
+    "hhsize": 0.3783,
+    "n_working": 0.4228
+  },
+  "intended_use": "rank households / areas for social-registry re-verification; descriptive support for planners",
+  "non_use": "must not be used to decide any individual household's eligibility or benefit",
+  "limitations": [
+    "cross-sectional survey; associations only",
+    "district-level sample ~500 households; counts carry sampling error",
+    "outcome measured post-transfer for recipients"
+  ]
+}

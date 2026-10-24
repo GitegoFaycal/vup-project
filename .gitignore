@@ -1,0 +1,8 @@
+# Licensed NISR microdata: never commit
+data/raw/
+data/clean/hh_*.csv
+# environments and caches
+.venv/
+venv/
+__pycache__/
+.streamlit/secrets.toml

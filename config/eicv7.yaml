@@ -1,0 +1,57 @@
+# Survey-round configuration. To onboard EICV8: copy this file to eicv8.yaml,
+# update the variable names and lines from the new codebook, and re-run the pipeline.
+round:
+  id: EICV7
+  label: "EICV7 (2023/24)"
+  fieldwork: "October 2023 to October 2024"
+  source: "National Institute of Statistics of Rwanda (NISR), EICV7 cross-sectional sample, v01 (May 2025)"
+  citation: "NISR (2025). Seventh Integrated Household Living Conditions Survey (EICV7). Kigali: NISR."
+
+paths:
+  raw: data/raw/Cross_Section/
+  clean: data/clean/
+  geo: data/geo/rwanda_districts.geojson
+
+files:
+  poverty: CS_EICV7_poverty_file
+  person: CS_S0_S1_S2_S3_S4_S6A_S6B_S6C_Person
+  household: CS_S01_S5_S7_Household
+  access: CS_S5F_access_to_services
+  savings: CS_S10C_Savings
+  credits: CS_S10A1_A2_credits
+  vup:
+    DS:   {file: CS_S9D1_Direct_Support,       flag: s9d1q2, amount: [s9d1q4]}
+    CPW:  {file: CS_S9D2_Classic_Public_Work,  flag: s9d2q1, amount: [s9d2q11]}
+    ePW:  {file: CS_S9D3_Expanded_Public_Work, flag: s9d3q1, amount: [s9d3q10]}
+    NSDS: {file: CS_S9D4_NSDS,                 flag: s9d4q1, amount: [s9d4q8a, s9d4q8b, s9d4q8c, s9d4q8d]}
+    FS:   {file: CS_S9D5_Financial_Services,   flag: s9d5q1, amount: [s9d5q4], is_loan: true}
+
+variables:
+  hhid: hhid
+  weight: weight
+  pop_weight: pop_wt
+  cluster: clust
+  strata: "district*10 + ur"      # strata_id is only filled for beneficiaries; this reproduces it exactly
+  district: district
+  province: province
+  urban_rural: ur
+  consumption_ae_real: sol_jan
+  consumption_total: cons1
+  consumption_ae_nominal: cons1ae
+  adult_equivalents: ae
+  poverty_category: poverty      # 1 extremely poor, 2 moderately poor, 3 non-poor
+
+poverty_lines:
+  total: 560127     # RWF per adult equivalent per year, Jan 2024 prices
+  extreme: 356432
+
+benchmarks:   # published figures the pipeline must reproduce
+  poverty_rate_pop: 27.4
+  extreme_poverty_rate_pop: 5.4
+  vup_households: 390878
+  vup_population: 1591579
+
+reporting:
+  min_unweighted_n: 30          # below this, a district estimate is "not reportable"
+  alert_rule: "district coverage upper 95% bound below national coverage point estimate"
+  ci_level: 0.95

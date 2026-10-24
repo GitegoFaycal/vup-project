@@ -1,0 +1,30 @@
+indicator,variable,uncovered_poor,uncovered_poor_lo,uncovered_poor_hi,covered_poor,covered_poor_lo,covered_poor_hi,nonpoor_vup,nonpoor_vup_lo,nonpoor_vup_hi,gap_uncovered_minus_covered,n_uncovered,n_covered
+Female-headed household,head_female,24.6,23.0,26.3,35.1,31.2,39.0,43.1,40.1,46.2,-10.5,2971,610
+Head aged 65 or more,head_65plus,11.9,10.7,13.0,25.0,21.4,28.6,31.1,28.3,34.0,-13.1,2971,610
+Head widowed,head_widowed,11.2,10.0,12.3,23.3,19.8,26.7,31.2,28.3,34.0,-12.1,2971,610
+Head never attended school,head_no_school,22.9,21.3,24.5,31.1,27.5,34.8,28.5,25.8,31.3,-8.2,2971,610
+Any member with a disability,any_disabled,9.0,7.9,10.1,14.7,11.8,17.6,11.0,9.1,12.9,-5.7,2971,610
+No adult male in household,no_adult_male,15.0,13.7,16.4,22.3,18.9,25.7,33.6,30.7,36.5,-7.3,2971,610
+Household size (mean),hhsize,4.8,4.8,4.9,4.8,4.6,4.9,3.6,3.5,3.8,0.0,2971,610
+Dependency ratio (mean),dependency_ratio,1.1,1.0,1.1,1.3,1.2,1.4,1.1,1.1,1.2,-0.2,2971,610
+Any member owns a mobile phone,any_phone,75.7,74.0,77.3,64.1,60.2,67.9,70.4,67.6,73.3,11.6,2971,610
+Any literate adult,any_adult_literate,87.9,86.8,89.1,81.0,77.9,84.0,78.9,76.3,81.4,6.9,2971,610
+Share of members with health insurance (mean),share_insured,0.7,0.7,0.8,0.8,0.8,0.8,0.9,0.9,0.9,-0.1,2971,610
+Improved floor,floor_improved,16.1,14.6,17.5,9.5,6.9,12.1,16.7,14.2,19.1,6.6,2971,610
+Walls with cement,wall_cement,33.5,31.7,35.4,21.8,18.4,25.3,33.7,30.6,36.7,11.7,2971,610
+Metal roof,roof_metal,68.4,66.5,70.3,56.9,52.7,61.2,64.7,61.6,67.7,11.5,2971,610
+Electricity (grid or solar),electricity,55.5,53.4,57.5,58.1,54.0,62.1,64.5,61.4,67.6,-2.6,2971,610
+Improved toilet,toilet_improved,89.1,87.9,90.3,90.8,88.1,93.4,93.4,91.8,95.0,-1.7,2971,610
+Lives in umudugudu settlement,umudugudu,70.5,68.4,72.5,69.5,65.7,73.4,70.9,67.9,73.9,1.0,2971,610
+Dispersed / isolated housing,dispersed,20.0,18.3,21.7,24.3,20.9,27.8,21.9,19.3,24.5,-4.3,2971,610
+Owns livestock or poultry,livestock,46.0,44.1,47.9,52.3,48.3,56.4,60.2,57.3,63.2,-6.3,2971,610
+Owns cattle,cattle,17.1,15.7,18.5,17.6,14.4,20.7,25.7,23.1,28.3,-0.5,2971,610
+"Any account (bank, SACCO, MFI, MoMo)",any_account,79.2,77.6,80.8,97.1,95.6,98.5,98.0,97.2,98.9,-17.9,2971,610
+SACCO account,sacco,33.1,31.2,34.9,90.0,87.6,92.5,90.4,88.5,92.3,-56.9,2971,610
+Mobile money account,momo,71.3,69.6,73.1,66.0,62.2,69.8,70.9,68.2,73.7,5.3,2971,610
+Member of a tontine / savings group,tontine,70.6,68.9,72.4,75.5,72.2,78.9,77.7,75.0,80.3,-4.9,2971,610
+Currently owes a loan,has_debt,65.6,63.8,67.4,75.4,71.9,78.9,73.4,70.7,76.0,-9.8,2971,610
+Minutes to health centre (mean),min_health_centre,51.4,49.1,53.8,51.2,48.2,54.2,48.5,46.1,51.0,0.2,2971,610
+Minutes to sector office (mean),min_sector_office,73.0,69.9,76.1,68.5,64.1,72.9,68.7,65.0,72.5,4.5,2971,610
+Minutes to food market (mean),min_food_market,51.3,48.9,53.6,53.5,49.9,57.1,50.4,47.7,53.1,-2.2,2971,610
+Rural,rural,81.8,80.0,83.5,88.5,85.4,91.7,90.2,88.2,92.2,-6.7,2971,610

@@ -1,0 +1,90 @@
+# VUP Financial Services credit scheme, Ministerial Instructions No. 01/10 of 23/02/2024 (MINALOC).
+# Encoded for the screener. Every rule carries the article it comes from so the on-screen
+# reason can cite it. Change this file, not the code, if the instructions are revised.
+
+source:
+  title: "Ministerial Instructions determining the management and implementation of the VUP Financial Services credit scheme"
+  number: "No. 01/10"
+  date: "2024-02-23"
+  issuer: "Ministry of Local Government (MINALOC)"
+
+loan_terms:                       # Art. 3, Art. 12
+  interest_rate_flat: 0.02
+  max_repayment_months: 24
+  collateral_required: false      # Art. 3(3): eligible clients exempted from physical collateral
+  district_approval_threshold_rwf: 2400000   # Art. 9: loans above this go to the District technical committee
+
+target_group:                     # Art. 4
+  description: "People able to work within poor households, with limited capacity in assets, for whom loans from financial institutions are not affordable"
+  min_age: 18                     # Art. 5(1)(e)
+  max_age: 64
+  must_show: "willingness and ability to implement micro income-generating projects"   # Art. 4(2)
+
+general_requirements:             # Art. 5(1)
+  account_required: true          # 5(1)(b): accounts in SACCOs or other financial institution
+  group_min_months_together: 3    # 5(1)(c)
+  cooperative_needs_rca_status: true   # 5(1)(d)
+  project_must_be_viable: true    # 5(1)(f)
+
+group_rules:                      # Art. 5(2)(a)
+  min_members: 7
+  max_members: 15
+  min_share_eligible_members: 0.70
+  one_group_per_person: true
+  joint_project_only: true
+
+cooperative_rules:                # Art. 5(2)(b)
+  min_share_poor_members: 0.70
+  max_share_other_members: 0.30
+
+not_eligible:                     # Art. 6
+  - key: elective_office
+    label: "Holds an elective office above village level"
+    article: "Art. 6(a)"
+  - key: loan_committee_member
+    label: "Member of the Sector loan committee"
+    article: "Art. 6(b)"
+  - key: previous_defaulter
+    label: "Previous loan defaulter"
+    article: "Art. 6(c)"
+  - key: non_resident
+    label: "Not resident in the sector for the previous 6 months"
+    article: "Art. 6(d)"
+  - key: public_servant
+    label: "Public servant with a permanent position or public-service contract"
+    article: "Art. 2(m), Art. 15"
+
+ceilings_rwf:                     # Art. 11, Table 1
+  individual:
+    - {members: [1, 1], amount: 200000}
+  individual_repeat_good_payer:   # Art. 11(2)(b): up to 300,000 after a well-repaid previous loan
+    - {members: [1, 1], amount: 300000}
+  group:
+    - {members: [7, 10], amount: 1500000}
+    - {members: [11, 15], amount: 2000000}
+  group_women_youth_70pct:
+    - {members: [7, 10], amount: 2000000}
+    - {members: [11, 15], amount: 2400000}
+  cooperative:
+    - {members: [10, 15], amount: 2500000}
+    - {members: [16, 30], amount: 4500000}
+    - {members: [31, 100000], amount: 6000000}
+  cooperative_women_youth_80pct_uplift: 0.20   # Art. 11(2)(a)
+
+former_street_vendors:            # Art. 14, City of Kigali
+  group_min_members: 7
+  group_max_members: 30
+  first_loan_per_member_rwf: 100000
+  repeat_loan_per_member_rwf: 200000
+  max_repayment_months: 12
+
+timelines_working_days:           # Art. 9
+  cell_to_sector_submission: 5    # 9(3)(b): cell submits collected applications within 5 working days
+  rejection_feedback: 3           # 9(2)(h): feedback to rejected applicants within 3 working days
+  disbursement_after_contract: 7  # 9(2)(g): disbursement within 7 working days of signing
+  loan_committee_meets: "quarterly"   # 9(2)(a)
+
+component_logic:                  # how the screener suggests a component (advice, not a decision)
+  direct_support: "no member aged 18-64 able to work"
+  public_works: "working-age member present, no viable business project"
+  financial_services: "working-age member present, viable project, SACCO/FI account, passes Art. 5-6"

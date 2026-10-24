@@ -1,0 +1,2 @@
+unit,n_hh,n_poor,n_xpoor,n_vup,n_vup_transfer,poverty_rate,poverty_rate_lo,poverty_rate_hi,coverage_poor,coverage_poor_lo,coverage_poor_hi,coverage_xpoor,coverage_xpoor_lo,coverage_xpoor_hi,leakage_post,leakage_post_lo,leakage_post_hi,leakage_pre,leakage_pre_lo,leakage_pre_hi,poor_hh_est,uncovered_poor_hh_est,uncovered_xpoor_hh_est,vup_hh_est,reportable_poor,reportable_xpoor
+Rwanda,15054,3581,628,1891,1645,23.4,22.6,24.2,15.9,14.7,17.1,18.2,15.0,21.3,65.7,63.3,68.2,59.9,57.3,62.4,769591,647242,111543,380321,True,True

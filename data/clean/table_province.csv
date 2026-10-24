@@ -1,0 +1,8 @@
+unit,n_hh,n_poor,n_xpoor,n_vup,n_vup_transfer,poverty_rate,poverty_rate_lo,poverty_rate_hi,coverage_poor,coverage_poor_lo,coverage_poor_hi,coverage_xpoor,coverage_xpoor_lo,coverage_xpoor_hi,leakage_post,leakage_post_lo,leakage_post_hi,leakage_pre,leakage_pre_lo,leakage_pre_hi,poor_hh_est,uncovered_poor_hh_est,uncovered_xpoor_hh_est,vup_hh_est,reportable_poor,reportable_xpoor
+Kigali City,1938,127,14,39,34,7.0,5.6,8.5,5.3,1.2,9.3,4.1,0.0,12.5,77.1,61.5,92.8,74.3,58.1,90.5,34709,32880,3310,9330,True,False
+Southern,3885,1173,216,609,518,30.5,28.8,32.2,17.8,15.6,20.1,18.4,13.0,23.8,60.8,56.4,65.1,53.6,49.2,58.0,227815,187159,34762,112811,True,True
+Western,3400,1086,223,605,518,32.5,30.5,34.5,21.2,18.6,23.9,21.7,16.1,27.3,58.5,53.8,63.2,53.5,48.8,58.2,215576,169778,36629,115099,True,True
+Northern,2430,426,61,401,368,17.3,15.6,19.1,19.5,15.7,23.3,24.2,14.4,34.1,78.4,74.1,82.8,72.6,67.8,77.4,87744,70650,9543,83156,True,True
+Eastern,3401,769,114,237,207,23.2,21.4,24.9,8.3,6.3,10.3,11.7,5.2,18.2,68.4,61.4,75.3,62.6,55.5,69.7,203747,186774,27300,59925,True,True
+Urban,3994,532,91,189,155,13.7,12.3,15.1,10.6,7.7,13.6,13.0,5.3,20.6,62.3,53.4,71.3,56.2,47.3,65.1,132062,118011,19712,41110,True,True
+Rural,11060,3049,537,1702,1490,27.4,26.4,28.4,17.0,15.6,18.4,19.2,15.8,22.7,66.1,63.6,68.7,60.3,57.6,62.9,637529,529230,91831,339211,True,True

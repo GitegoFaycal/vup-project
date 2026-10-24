@@ -1,0 +1,14 @@
+{
+  "round": {
+    "id": "EICV7",
+    "label": "EICV7 (2023/24)",
+    "fieldwork": "October 2023 to October 2024",
+    "source": "National Institute of Statistics of Rwanda (NISR), EICV7 cross-sectional sample, v01 (May 2025)",
+    "citation": "NISR (2025). Seventh Integrated Household Living Conditions Survey (EICV7). Kigali: NISR."
+  },
+  "reporting": {
+    "min_unweighted_n": 30,
+    "alert_rule": "district coverage upper 95% bound below national coverage point estimate",
+    "ci_level": 0.95
+  }
+}
