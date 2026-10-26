@@ -8,6 +8,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
+import theme
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 D = os.path.join(HERE, "data")
@@ -39,10 +40,11 @@ INDICATORS = {
     "Model: predicted poor and uncovered (count)": ("pred_poor_uncovered_hh_est", "households the targeting model flags as poor that receive nothing", "Oranges"),
 }
 
-# ---------------- header ----------------
-st.title("Where Rwanda's VUP misses the poor")
-st.caption(f"District-level evidence from {ROUND}. Built for LODA, MINALOC and district planners. "
-           "Tools for sector officers are in the sidebar: **Screener** (FS application pre-screen against the 2024 instructions) and **Tracker** (Art. 9 deadlines).")
+# ---------------- header: navbar + lead ----------------
+theme.apply("overview")
+st.markdown(f'<div class="vup-lead">Where poor households receive no VUP support, and how many of them there are, district by district. '
+            "Tools for sector officers are in the top bar: <b>Screener</b> pre-screens an FS application against the 2024 instructions, "
+            "<b>Tracker</b> follows Art. 9 deadlines.</div>", unsafe_allow_html=True)
 
 c1, c2, c3, c4 = st.columns(4)
 c1.metric("Poor households covered by any VUP component", f"{nat.coverage_poor:.1f} %",
@@ -70,12 +72,29 @@ with tab_map:
     d = dist.copy()
     d["label"] = d.district
     d.loc[~d.reportable_poor, col] = None
-    hover = {"district": True, col: ":,.1f", "coverage_poor_lo": ":.1f", "coverage_poor_hi": ":.1f",
-             "n_poor": True, "alert_low_coverage": True}
+    # plain-language hover text (one HTML string per district) instead of raw column names
+    STANDARD = {"coverage_poor", "uncovered_poor_hh_est", "leakage_post", "n_poor"}
+    def hover_text(r):
+        if not r.reportable_poor:
+            return (f"<b>{r.district}</b>, {r.province}<br><br>Not reported: fewer than 30 poor households in the sample.")
+        lines = [f"<b>{r.district}</b>, {r.province}<br>"]
+        if col not in STANDARD:
+            v = f"{int(r[col]):,}" if "count" in ind else f"{r[col]:.1f} %"
+            lines.append(f"<b>{ind.split(' (')[0]}: {v}</b>")
+        lines += [f"Coverage of poor households: <b>{r.coverage_poor:.1f} %</b> (95% interval {r.coverage_poor_lo:.1f} to {r.coverage_poor_hi:.1f})",
+                  f"Poor households receiving nothing: <b>{int(r.uncovered_poor_hh_est):,}</b>",
+                  f"Cash recipients who are non-poor: <b>{r.leakage_post:.0f} %</b>",
+                  f"Poor households in sample: {int(r.n_poor)}",
+                  "Flagged for low coverage: <b>Yes</b>" if r.alert_low_coverage else "Flagged for low coverage: No"]
+        return "<br>".join(lines)
+    d["hover"] = d.apply(hover_text, axis=1)
+    HOVER = dict(customdata=d[["hover"]].to_numpy(), hovertemplate="%{customdata[0]}<extra></extra>")
+    hover = {"district": False}
     with left:
         if geo is not None:
             fig = px.choropleth(d, geojson=geo, locations="district", featureidkey="properties.district",
                                 color=col, color_continuous_scale=scale, range_color=(0, d[col].max()), hover_name="district", hover_data=hover)
+            fig.update_traces(**HOVER)
             if show_alerts:
                 al = d[d.alert_low_coverage]
                 # outline flagged districts by re-drawing them with a thick border
@@ -84,20 +103,23 @@ with tab_map:
                                             marker_line_color="#b5791a", marker_line_width=3, hoverinfo="skip", name="alert"))
             fig.update_geos(fitbounds="locations", visible=False, bgcolor="rgba(0,0,0,0)")
             fig.update_layout(margin=dict(l=0, r=0, t=0, b=0), height=560, coloraxis_colorbar_title="")
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
         else:
             st.info("District boundaries not loaded yet (add data/geo/rwanda_districts.geojson and rerun 05). Showing ranked bars.")
             dd = d.sort_values(col)
             fig = px.bar(dd, x=col, y="district", orientation="h", color="alert_low_coverage" if show_alerts else None,
                          color_discrete_map={True: "#b5791a", False: "#124e44"}, hover_data=hover)
+            fig.update_traces(hovertemplate="%{customdata[0]}<extra></extra>")
+            for tr in fig.data:  # px splits the bars by colour; give each trace the hover text of its own rows
+                tr.customdata = dd.loc[dd.district.isin(tr.y), ["hover"]].set_index(dd.loc[dd.district.isin(tr.y), "district"]).loc[list(tr.y)].to_numpy()
             if "coverage" in col:
                 fig.update_traces(error_x=dict(type="data", symmetric=False,
                                                array=dd.coverage_poor_hi - dd[col], arrayminus=dd[col] - dd.coverage_poor_lo))
             fig.update_layout(height=760, margin=dict(l=0, r=0, t=0, b=0), yaxis_title="", showlegend=False)
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
     st.caption(SRC + " Grey districts have fewer than 30 poor households in the sample and are not reportable.")
 
-    st.subheader("Flagged districts")
+    theme.section("Flagged districts")
     fl = dist[dist.alert_low_coverage].sort_values("uncovered_poor_hh_est", ascending=False)
     st.markdown("These districts cover significantly fewer of their poor households than the country as a whole. "
                 "Sorted by the number of poor households receiving nothing, which is what a re-verification exercise would budget against.")
@@ -106,7 +128,7 @@ with tab_map:
                  .rename(columns={"coverage_poor": "coverage %", "coverage_poor_lo": "low", "coverage_poor_hi": "high",
                                   "uncovered_poor_hh_est": "uncovered poor hh", "pred_poor_uncovered_hh_est": "model: predicted poor, uncovered",
                                   "leakage_post": "leakage %", "n_poor": "poor hh in sample"}),
-                 hide_index=True, use_container_width=True)
+                 hide_index=True, width="stretch")
     st.download_button("Download district table (CSV)", dist.to_csv(index=False), "vup_gaps_districts.csv", "text/csv")
 
 # ---------------- district profile ----------------
@@ -115,7 +137,7 @@ with tab_district:
         dist.sort_values("uncovered_poor_hh_est", ascending=False).district.iloc[0]))
     r = dist[dist.district == sel].iloc[0]
     p = prov[prov.area == r.province].iloc[0] if (prov.area == r.province).any() else None
-    st.subheader(f"{sel}, {r.province} Province")
+    theme.section(f"{sel}, {r.province} Province")
     if r.alert_low_coverage:
         st.warning("Flagged: coverage of poor households is significantly below the national rate.")
     a, b, c = st.columns(3)
@@ -133,7 +155,7 @@ with tab_district:
     fig = go.Figure(go.Bar(x=rows.level, y=rows.coverage, marker_color=["#b5791a", "#7fa89a", "#124e44"],
                            error_y=dict(type="data", symmetric=False, array=rows.hi - rows.coverage, arrayminus=rows.coverage - rows.lo)))
     fig.update_layout(height=320, margin=dict(l=0, r=0, t=10, b=0), yaxis_title="coverage of poor households, %")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     st.markdown(f"**In plain terms:** of every 100 poor households in {sel}, about **{r.coverage_poor:.0f}** receive a VUP component. "
                 f"That leaves an estimated **{int(r.uncovered_poor_hh_est):,}** poor households with no support. "
                 f"Among households that do receive VUP cash, about **{r.leakage_post:.0f} in 100** are above the poverty line.")
@@ -141,7 +163,7 @@ with tab_district:
 
 # ---------------- who is missed ----------------
 with tab_who:
-    st.subheader("Uncovered poor households compared with covered poor households")
+    theme.section("Uncovered poor households compared with covered poor households")
     st.markdown("Households below the poverty line that receive **no** VUP component, next to those that receive one. "
                 "Where the bars' intervals do not overlap, the difference is unlikely to be sampling noise.")
     sub = prof[~prof.indicator.str.contains("mean")].copy()
@@ -152,7 +174,7 @@ with tab_who:
                              error_x=dict(type="data", symmetric=False, array=sub[grp + "_hi"] - sub[grp], arrayminus=sub[grp] - sub[grp + "_lo"])))
     fig.update_layout(barmode="group", height=820, margin=dict(l=0, r=0, t=10, b=0), xaxis_title="% of households", yaxis_title="",
                       legend=dict(orientation="h", y=1.02, x=0))
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     st.markdown(
         "**Reading the chart.** Covered poor households match the programme's vulnerability template: more often female-headed, "
         "elderly, widowed, with a member with disability or no adult man. Uncovered poor households are more often male-headed and "
@@ -162,7 +184,7 @@ with tab_who:
                 "through Umurenge SACCOs. The uncovered poor mostly have mobile money (71%), so a MoMo payment channel matters for them.")
     means = prof[prof.indicator.str.contains("mean")][["indicator", "uncovered_poor", "covered_poor", "nonpoor_vup"]]
     st.dataframe(means.rename(columns={"uncovered_poor": "uncovered poor", "covered_poor": "covered poor", "nonpoor_vup": "non-poor recipients"}),
-                 hide_index=True, use_container_width=True)
+                 hide_index=True, width="stretch")
     st.caption(SRC)
 
 # ---------------- methods ----------------
@@ -194,7 +216,7 @@ with tab_methods:
     with st.expander("Model coefficients (standardised log-odds of being poor)"):
         co = pd.Series(card["coefficients_standardised"]).sort_values()
         st.plotly_chart(px.bar(co, orientation="h", height=700).update_layout(showlegend=False, yaxis_title="", xaxis_title="coefficient",
-                                                                              margin=dict(l=0, r=0, t=0, b=0)), use_container_width=True)
+                                                                              margin=dict(l=0, r=0, t=0, b=0)), width="stretch")
     with st.expander("Calibration by decile"):
         st.dataframe(pd.DataFrame(card["calibration_deciles"]), hide_index=True)
     st.subheader("Limitations")

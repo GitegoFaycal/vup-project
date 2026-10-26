@@ -1,0 +1,25 @@
+# Streamlit theme for the VUP dashboard. Read when `streamlit run` is launched from the repo root.
+# The detailed look (navbar, cards, tabs) lives in dashboard/theme.py; this file sets the base palette.
+
+[theme]
+base = "light"
+primaryColor = "#1b4a8a"
+backgroundColor = "#f4f6fb"
+secondaryBackgroundColor = "#ffffff"
+textColor = "#15233a"
+linkColor = "#1b4a8a"
+borderColor = "#dfe5ef"
+baseRadius = "0.8rem"
+buttonRadius = "999px"
+showWidgetBorder = true
+
+[theme.sidebar]
+backgroundColor = "#0b1f3a"
+secondaryBackgroundColor = "#17396a"
+textColor = "#e8eef8"
+primaryColor = "#e9b949"
+linkColor = "#e9b949"
+borderColor = "#24436f"
+
+[browser]
+gatherUsageStats = false

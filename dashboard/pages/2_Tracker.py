@@ -3,19 +3,22 @@ Tracker  -  monitors each application against the working-day limits in Art. 9 o
 FS Ministerial Instructions. Demo runs on sample entries; a production version would read
 the same fields from the FS management information system (Art. 8(5), Art. 12(4)).
 """
-import os, datetime as dt
+import os, sys, datetime as dt
 import numpy as np
 import pandas as pd
 import streamlit as st
 import yaml
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(HERE, ".."))
+import theme
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
 st.set_page_config(page_title="FS Tracker", page_icon="⏱️", layout="wide")
 R = yaml.safe_load(open(os.path.join(ROOT, "config", "fs_rules.yaml")))
 T = R["timelines_working_days"]
 
-st.title("Application timeline tracker")
+theme.apply("tracker")
+st.markdown('<div class="vup-page-title">Application timeline tracker</div>', unsafe_allow_html=True)
 st.caption("Art. 9 limits: cell to sector within "
            f"{T['cell_to_sector_submission']} working days; feedback on rejection within {T['rejection_feedback']}; "
            f"disbursement within {T['disbursement_after_contract']} working days of contract signing. "
@@ -79,6 +82,6 @@ show = A[["case", "sector", "received_cell", "sent_sector", "decision", "outcome
 for col in ["received_cell", "sent_sector", "decision", "contract", "disbursed"]:
     show[col] = show[col].dt.strftime("%d %b").fillna("")
 st.dataframe(show.style.apply(lambda s: ["background-color:#fbf1dc" if v != "on time" else "" for v in s] if s.name == "status" else [""]*len(s)),
-             hide_index=True, use_container_width=True)
+             hide_index=True, width="stretch")
 st.caption("Working days exclude Saturdays and Sundays; public holidays are not yet excluded. "
            "The thematic report found only 10% of CPW payments on time nationally; this view would show, per sector, which step is late.")
