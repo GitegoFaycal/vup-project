@@ -8,7 +8,7 @@ import streamlit as st
 NAVY, NAVY_2, BLUE = "#0b1f3a", "#143564", "#1b4a8a"
 GOLD, TEAL, INK, MUTED = "#e9b949", "#124e44", "#15233a", "#5b6b85"
 
-BRAND = "Where Rwanda's VUP misses the poor"
+BRAND = "Where VUP misses the poor"
 
 CSS = """
 <style>

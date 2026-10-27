@@ -1,4 +1,4 @@
-# Where Rwanda's VUP misses the poor
+# Where VUP misses the poor
 
 District-level evidence on the coverage gaps of the Vision Umurenge Programme (VUP), built from
 NISR's EICV7 household survey for the **NISR 2026 Big Data Hackathon, Track 2: Financial Inclusion
