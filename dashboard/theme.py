@@ -1,7 +1,3 @@
-"""
-Shared look and feel for the dashboard: page CSS and the top navbar.
-Every page calls theme.apply(active=<page key>) right after st.set_page_config().
-"""
 import plotly.io as pio
 import streamlit as st
 

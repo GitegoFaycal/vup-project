@@ -1,9 +1,4 @@
-"""
-Screener  -  pre-screens a VUP Financial Services application against the 2024 Ministerial
-Instructions (rules from config/fs_rules.yaml) and scores household poverty with the EICV7
-screener model. Advises the Sector Loan Committee; never decides.
-No personal data is collected or stored: the session log keeps outcomes under a random case id.
-"""
+
 import json, os, sys, uuid, datetime as dt
 import numpy as np
 import pandas as pd

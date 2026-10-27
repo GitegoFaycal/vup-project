@@ -1,8 +1,4 @@
-"""
-VUP coverage gaps dashboard  -  Streamlit app.
-Run:  streamlit run dashboard/app.py   (from the repo root)
-Data: dashboard/data/  (built by scripts/05_build_dashboard_data.py)
-"""
+
 import json, os
 import pandas as pd
 import plotly.express as px

@@ -1,8 +1,4 @@
-"""
-Tracker  -  monitors each application against the working-day limits in Art. 9 of the
-FS Ministerial Instructions. Demo runs on sample entries; a production version would read
-the same fields from the FS management information system (Art. 8(5), Art. 12(4)).
-"""
+
 import os, sys, datetime as dt
 import numpy as np
 import pandas as pd
