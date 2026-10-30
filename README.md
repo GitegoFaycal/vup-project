@@ -8,7 +8,7 @@
 | | |
 |---|---|
 | Live app | `https://vupscreener.streamlit.app/` (public, no login) |
-| Demo video | `demo/demo.webm` |
+| Demo video | `demo/VUP Screener Video.webm` |
 | Data | NISR EICV7 cross-section, catalog 119: https://microdata.statistics.gov.rw/index.php/catalog/119 (licensed, not redistributed; aggregates in `data/clean/` and `dashboard/data/`; see `data/README.md`) |
 | Code | this repository; everything runs from the root with `pip install -r requirements.txt` |
 | Team | **NIYONGANA Anathole**, **GITEGO Faycal** - [University of Lay Adventist of Kigali (UNILAK)] |
